@@ -76,7 +76,7 @@ export default function BlogForm({ initialData, isEditing = false }) {
 
         const payload = {
             ...formData,
-            content: formData.content,
+            content: typeof formData.content === 'object' ? JSON.stringify(formData.content) : formData.content,
         };
 
         const result = isEditing && initialData

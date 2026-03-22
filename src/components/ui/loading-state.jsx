@@ -1,0 +1,7 @@
+import { Loader2 } from "lucide-react";
+export function LoadingState({ message = "Loading..." }) {
+    return (<div className="flex flex-col items-center justify-center p-8 text-muted-foreground w-full h-40">
+            <Loader2 className="w-8 h-8 animate-spin mb-2"/>
+            <p className="text-sm font-mono">{message}</p>
+        </div>);
+}

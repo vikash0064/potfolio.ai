@@ -1,0 +1,43 @@
+"use client";
+import { ShieldCheck, LogOut } from "lucide-react";
+
+export default function AdminHeader({ user }) {
+    return (
+        <header className="h-16 border-b border-[#333] bg-black/20 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-10">
+            <div className="flex items-center gap-4 text-gray-500 text-sm font-mono">
+                <div className="md:hidden flex items-center gap-2">
+                    <span className="text-primary font-bold">ADMIN_OS</span>
+                </div>
+                <div className="hidden md:flex items-center gap-4">
+                    <span className="text-primary">$</span>
+                    <span className="typing-effect">sys.status --check</span>
+                </div>
+            </div>
+
+            <div className="flex items-center gap-6">
+                <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/20">
+                    <ShieldCheck className="w-3 h-3 text-primary"/>
+                    <span className="text-xs text-primary font-mono font-bold tracking-wider">SUPERUSER</span>
+                </div>
+
+                <div className="flex items-center gap-4 border-l border-[#333] pl-6">
+                    <div className="text-right hidden sm:block">
+                        <p className="text-xs text-gray-400 font-mono">Logged in as</p>
+                        <p className="text-sm font-bold text-white max-w-[200px] truncate">{user.email}</p>
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-800 to-black border border-gray-700 flex items-center justify-center text-xs font-bold text-gray-400">
+                        {user.email?.charAt(0).toUpperCase()}
+                    </div>
+
+                    <button 
+                        onClick={() => { localStorage.removeItem('admin_token'); window.location.href = '/admin/login'; }} 
+                        className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-full transition-colors" 
+                        title="Logout"
+                    >
+                        <LogOut className="w-5 h-5"/>
+                    </button>
+                </div>
+            </div>
+        </header>
+    );
+}

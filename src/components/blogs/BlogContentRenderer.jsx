@@ -6,10 +6,21 @@ import { common, createLowlight } from 'lowlight';
 // Create lowlight instance for highlighting (server-side capable basically)
 const lowlight = createLowlight(common);
 export default function BlogContentRenderer({ content }) {
-    if (!content || !content.content)
+    let parsedContent = content;
+    if (typeof content === 'string') {
+        try {
+            parsedContent = JSON.parse(content);
+        } catch (e) {
+            console.error('Failed to parse blog content string', e);
+            return <p className="text-red-500">Errror parsing blog format</p>;
+        }
+    }
+
+    if (!parsedContent || !parsedContent.content)
         return null;
+
     return (<div className="prose prose-invert prose-p:text-gray-300 prose-headings:font-display prose-headings:font-bold prose-a:text-primary prose-code:text-primary prose-blockquote:border-l-primary/50 max-w-none">
-            {content.content.map((node, index) => (<Node key={index} node={node}/>))}
+            {parsedContent.content.map((node, index) => (<Node key={index} node={node}/>))}
         </div>);
 }
 function Node({ node }) {

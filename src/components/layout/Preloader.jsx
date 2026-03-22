@@ -27,20 +27,22 @@ export default function Preloader({ onComplete }) {
             else {
                 clearInterval(logInterval);
             }
-        }, 150);
+        }, 50); // Extremely fast logs
+
         // Progress bar simulator
         const progressInterval = setInterval(() => {
             setProgress(prev => {
                 if (prev >= 100) {
                     clearInterval(progressInterval);
                     setIsComplete(true);
-                    setTimeout(onComplete, 800); // Delay before unmounting
+                    setTimeout(onComplete, 300); // Faster unmount
                     return 100;
                 }
-                const increment = Math.random() * 5 + 1; // Random speed
+                const increment = Math.random() * 8 + 6; // Hugely increased increment speed
                 return Math.min(prev + increment, 100);
             });
-        }, 50);
+        }, 30); // Low interval latency
+
         return () => {
             clearInterval(logInterval);
             clearInterval(progressInterval);

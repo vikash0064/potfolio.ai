@@ -12,9 +12,11 @@ export default function Home() {
     const [experience, setExperience] = useState([]);
     useEffect(() => {
         async function fetchData() {
-            const p = await getProjects();
-            const s = await getSkills();
-            const e = await getExperience();
+            const [p, s, e] = await Promise.all([
+                getProjects(),
+                getSkills(),
+                getExperience()
+            ]);
             setProjects(p || []);
             setSkills(s || []);
             setExperience(e || []);

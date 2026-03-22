@@ -1,10 +1,19 @@
 const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
 
+const globalCache = {
+    projects: null,
+    skills: null,
+    experience: null
+};
+
 // Database: Projects
 export const getProjects = async () => {
+    if (globalCache.projects) return globalCache.projects;
     try {
         const res = await fetch(`${API_URL}/projects`);
-        return await res.json();
+        const data = await res.json();
+        globalCache.projects = data;
+        return data;
     } catch (err) { console.error(err); return []; }
 };
 
@@ -17,9 +26,12 @@ export const getProjectById = async (id) => {
 
 // Database: Skills
 export const getSkills = async () => {
+    if (globalCache.skills) return globalCache.skills;
     try {
         const res = await fetch(`${API_URL}/skills`);
-        return await res.json();
+        const data = await res.json();
+        globalCache.skills = data;
+        return data;
     } catch (err) { console.error(err); return []; }
 };
 
@@ -31,9 +43,12 @@ export const getSkillById = async (id) => {
 };
 
 export const getExperience = async () => {
+    if (globalCache.experience) return globalCache.experience;
     try {
         const res = await fetch(`${API_URL}/experience`);
-        return await res.json();
+        const data = await res.json();
+        globalCache.experience = data;
+        return data;
     } catch(err) { console.error(err); return []; }
 };
 

@@ -113,7 +113,7 @@ export default function Navbar() {
                             <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300"/>
                         </Link>))}
 
-                    <a href="/download_cv.pdf" download="Vikash_Kushwaha_Resume.pdf" className="px-4 py-2 border border-primary/50 text-primary text-xs font-mono hover:bg-primary/10 transition-colors uppercase tracking-widest">
+                    <a href="/Vikash_Kushwaha_Resume.pdf" target="_blank" rel="noopener noreferrer" className="px-4 py-2 border border-primary/50 text-primary text-xs font-mono hover:bg-primary/10 transition-colors uppercase tracking-widest">
                         Resume
                     </a>
                 </div>

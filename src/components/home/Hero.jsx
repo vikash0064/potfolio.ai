@@ -29,8 +29,8 @@ export default function Hero() {
                     }} className="px-8 py-3 bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-black transition-all flex items-center justify-center gap-2 group cursor-pointer w-full sm:w-auto">
                         {`>`} Hire Me
                     </a>
-                    <a href="/download_cv.pdf" download="Vikash_Kushwaha_Resume.pdf" className="px-8 py-3 bg-transparent border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2 w-full sm:w-auto cursor-pointer">
-                        {`>`} download_cv.pdf <Download className="w-4 h-4"/>
+                    <a href="/Vikash_Kushwaha_Resume.pdf" target="_blank" rel="noopener noreferrer" className="px-8 py-3 bg-transparent border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2 w-full sm:w-auto cursor-pointer">
+                        {`>`} View Resume <Download className="w-4 h-4"/>
                     </a>
                 </div>
             </motion.div>

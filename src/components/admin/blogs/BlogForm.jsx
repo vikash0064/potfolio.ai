@@ -55,6 +55,21 @@ export default function BlogForm({ initialData, isEditing = false }) {
         }
     }, [formData.title, isEditing]);
 
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+                toast.error('File size must be less than 2MB');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData((prev) => ({ ...prev, cover_image: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -168,19 +183,33 @@ export default function BlogForm({ initialData, isEditing = false }) {
 
                     <div className="space-y-4 rounded-2xl border border-white/10 bg-black/40 p-6">
                         <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-gray-500">Media</h3>
-                        <Field
-                            label="Cover Image URL"
-                            value={formData.cover_image}
-                            onChange={(value) => setFormData((prev) => ({ ...prev, cover_image: value }))}
-                            type="url"
-                        />
+                        
+                        <div className="flex flex-col gap-3 rounded-xl border border-white/10 p-4 bg-black/20">
+                            <label className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-gray-800 px-4 py-2 text-sm font-mono text-white transition-colors hover:bg-gray-700">
+                                <span>Choose Local Cover Image</span>
+                                <input 
+                                    type="file" 
+                                    accept="image/*" 
+                                    onChange={handleImageUpload} 
+                                    className="hidden" 
+                                />
+                            </label>
+                            <div className="text-center text-xs text-gray-500 font-mono uppercase tracking-widest">or</div>
+                            <Field
+                                label="Cover Image URL"
+                                value={formData.cover_image}
+                                onChange={(value) => setFormData((prev) => ({ ...prev, cover_image: value }))}
+                                type="text"
+                            />
+                        </div>
+
                         {formData.cover_image && (
-                            <div className="overflow-hidden rounded-xl border border-white/10 bg-black/30">
+                            <div className="overflow-hidden rounded-xl border border-white/10 bg-black/30 aspect-video">
                                 <img src={formData.cover_image} alt="Cover preview" className="h-full w-full object-cover" />
                             </div>
                         )}
                         <p className="font-mono text-xs text-gray-600">
-                            Use a public image URL or a local path such as <code>/images/example.png</code>.
+                            Use a public image URL or select a local image (max 2MB).
                         </p>
                     </div>
 

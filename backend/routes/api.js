@@ -53,8 +53,9 @@ router.delete('/projects/:id', async (req, res) => {
 // --- Blogs ---
 router.get('/blogs', async (req, res) => {
     try {
-      const { search, limit, page, featured } = req.query;
-      let filter = { status: 'published', deleted_at: null };
+      const { search, limit, page, featured, all } = req.query;
+      let filter = { deleted_at: null };
+      if (all !== 'true') filter.status = 'published';
       if (search) filter.title = new RegExp(search, 'i');
       if (featured === 'true') filter.featured = true;
 

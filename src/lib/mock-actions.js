@@ -124,7 +124,7 @@ export const getBlog = async (id) => {
 };
 
 export const getBlogs = async () => {
-    const res = await fetch(`${API_URL}/blogs`);
+    const res = await fetch(`${API_URL}/blogs?all=true`);
     if (res.ok) return await res.json();
     return [];
 };

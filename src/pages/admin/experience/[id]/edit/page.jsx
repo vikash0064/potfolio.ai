@@ -19,8 +19,7 @@ export default function EditExperiencePage() {
     if (!experience) return <div className="p-8 text-white">Loading experience...</div>;
 
     const updateExperienceWithId = async (formData) => {
-        await updateExperience(id, formData);
-        navigate('/admin/experience');
+        return await updateExperience(id, formData);
     };
 
     return (

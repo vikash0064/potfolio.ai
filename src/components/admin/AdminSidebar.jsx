@@ -8,10 +8,11 @@ const navItems = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },
     { name: "Projects", href: "/admin/projects", icon: FolderKanban },
     { name: "Blogs", href: "/admin/blogs", icon: BookOpen },
-    { name: "Skills", href: "/admin/skills", icon: Award },
-    { name: "Experience", href: "/admin/experience", icon: Cpu },
+    { name: "Skills", href: "/admin/skills", icon: Cpu },
+    { name: "Experience", href: "/admin/experience", icon: Shield },
+    { name: "Certificates", href: "/admin/certificates", icon: Award },
     { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-    { name: "Activity", href: "/admin/activity", icon: Shield },
+    { name: "Activity", href: "/admin/activity", icon: Terminal },
 ];
 
 export default function AdminSidebar() {

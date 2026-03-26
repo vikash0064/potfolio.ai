@@ -19,8 +19,7 @@ export default function EditProjectPage() {
     if (!project) return <div className="p-8 text-white">Loading project...</div>;
 
     const updateAction = async (formData) => {
-        await updateProject(id, formData);
-        navigate('/admin/projects');
+        return await updateProject(id, formData);
     };
 
     return (<div className="space-y-6">

@@ -3,7 +3,8 @@ const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
 const globalCache = {
     projects: null,
     skills: null,
-    experience: null
+    experience: null,
+    certificates: null
 };
 
 // Database: Projects
@@ -57,6 +58,24 @@ export const getExperienceById = async (id) => {
         const res = await fetch(`${API_URL}/experience/${id}`);
         return await res.json();
     } catch(err) { console.error(err); return null; }
+};
+
+// Database: Certificates
+export const getCertificates = async () => {
+    if (globalCache.certificates) return globalCache.certificates;
+    try {
+        const res = await fetch(`${API_URL}/certificates`);
+        const data = await res.json();
+        globalCache.certificates = data;
+        return data;
+    } catch (err) { console.error(err); return []; }
+};
+
+export const getCertificateById = async (id) => {
+    try {
+        const res = await fetch(`${API_URL}/certificates/${id}`);
+        return await res.json();
+    } catch (err) { console.error(err); return null; }
 };
 
 export const getAdminExperience = async () => {

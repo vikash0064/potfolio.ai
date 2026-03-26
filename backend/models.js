@@ -79,10 +79,25 @@ const userSchema = new mongoose.Schema({
   role: { type: String, default: 'admin' }
 }, { timestamps: true, toJSON: { transform: transformResource } });
 
+projectSchema.index({ order_index: 1, deleted_at: 1 });
+blogSchema.index({ publish_date: -1, status: 1, deleted_at: 1 });
+skillSchema.index({ order_index: 1, deleted_at: 1 });
+
+const certificateSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  issuer: String,
+  date: String,
+  image: String,
+  link: String,
+  order_index: { type: Number, default: 0 },
+  deleted_at: { type: Date, default: null }
+}, { timestamps: true, toJSON: { transform: transformResource } });
+
 export const Project = mongoose.model('Project', projectSchema);
 export const Blog = mongoose.model('Blog', blogSchema);
 export const Skill = mongoose.model('Skill', skillSchema);
 export const Experience = mongoose.model('Experience', experienceSchema);
+export const Certificate = mongoose.model('Certificate', certificateSchema);
 export const AuditLog = mongoose.model('AuditLog', auditLogSchema);
 export const Visitor = mongoose.model('Visitor', visitorSchema);
 export const PageView = mongoose.model('PageView', pageViewSchema);

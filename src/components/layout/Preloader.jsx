@@ -27,7 +27,7 @@ export default function Preloader({ onComplete }) {
             else {
                 clearInterval(logInterval);
             }
-        }, 150);
+        }, 80);
 
         // Progress bar simulator
         const progressInterval = setInterval(() => {
@@ -35,7 +35,7 @@ export default function Preloader({ onComplete }) {
                 if (prev >= 100) {
                     clearInterval(progressInterval);
                     setIsComplete(true);
-                    setTimeout(onComplete, 800); // Delay before unmounting
+                    setTimeout(onComplete, 300); // Faster delay
                     return 100;
                 }
                 const increment = Math.random() * 5 + 1; // Random speed
@@ -88,6 +88,6 @@ export default function Preloader({ onComplete }) {
             </div>
 
             {/* Matrix/Glitch Overlay */}
-            <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"/>
+            <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('/noise.svg')] mix-blend-overlay"/>
         </motion.div>);
 }

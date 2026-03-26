@@ -29,7 +29,7 @@ export default function AdminDashboard() {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {/* Placeholder Cards - Keeping these as quick links */}
-                {['Projects', 'Skills', 'Experience'].map((item) => (
+                {['Projects', 'Skills', 'Experience', 'Certificates'].map((item) => (
                     <Link key={item} href={`/admin/${item.toLowerCase()}`} className="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-primary/50 transition-all group cursor-pointer block">
                         <h3 className="text-lg font-bold text-gray-200 group-hover:text-primary mb-2 flex items-center gap-2">
                             {item}

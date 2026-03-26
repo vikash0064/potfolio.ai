@@ -25,12 +25,12 @@ export default function Home() {
         fetchData();
     }, []);
     return (<main className="min-h-screen w-full relative bg-background">
-      <Hero />
-      <SkillsSection skills={skills}/>
-      <ProjectGrid projects={projects}/>
-      <ExperienceScale experience={experience}/>
-      <EducationScale />
-      <FeaturedBlogs />
-      <ContactForm />
+        <Hero />
+        <SkillsSection skills={skills} />
+        <ProjectGrid projects={projects} />
+        <ExperienceScale experience={experience} />
+        <EducationScale />
+        <FeaturedBlogs />
+        <ContactForm />
     </main>);
 }

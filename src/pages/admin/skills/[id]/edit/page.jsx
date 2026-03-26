@@ -19,8 +19,7 @@ export default function EditSkillPage() {
     if (!skill) return <div className="p-8 text-white">Loading skill...</div>;
 
     const updateSkillWithId = async (formData) => {
-        await updateSkill(id, formData);
-        navigate('/admin/skills');
+        return await updateSkill(id, formData);
     };
 
     return (<div className="space-y-6">

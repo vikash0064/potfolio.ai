@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import MatrixBackground from "@/components/canvas/MatrixBackground";
 import TypewriterEffect from "./TypewriterEffect";
 import { Download } from "lucide-react";
 
@@ -34,11 +33,6 @@ export default function Hero() {
                     </a>
                 </div>
             </motion.div>
-
-            {/* Matrix Background */}
-            <div className="absolute inset-0 z-0 pointer-events-none">
-                <MatrixBackground />
-            </div>
 
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-primary/20 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"/>

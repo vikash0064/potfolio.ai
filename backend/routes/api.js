@@ -1,5 +1,5 @@
 import express from 'express';
-import { Project, Blog, Skill, Experience, AuditLog, Visitor, PageView } from '../models.js';
+import { Project, Blog, Skill, Experience, Certificate, AuditLog, Visitor, PageView } from '../models.js';
 
 const router = express.Router();
 
@@ -67,7 +67,7 @@ router.get('/blogs', async (req, res) => {
         .limit(pLimit)
         .skip((pPage - 1) * pLimit);
 
-      res.json(blogs); // The frontend expects array for mock-actions!
+      res.json(blogs);
     } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
@@ -194,6 +194,46 @@ router.delete('/experience/:id', async (req, res) => {
     } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
+// --- Certificates ---
+router.get('/certificates', async (req, res) => {
+    try {
+      const items = await Certificate.find({ deleted_at: null }).sort('order_index');
+      res.json(items);
+    } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.post('/certificates', async (req, res) => {
+    try {
+      const item = new Certificate(req.body);
+      await item.save();
+      await logAudit('CREATE', 'Certificate', item._id, { title: item.title });
+      res.json(item);
+    } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.get('/certificates/:id', async (req, res) => {
+    try {
+      const item = await Certificate.findById(req.params.id);
+      res.json(item);
+    } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.put('/certificates/:id', async (req, res) => {
+    try {
+      const item = await Certificate.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      await logAudit('UPDATE', 'Certificate', item._id, { title: item.title });
+      res.json(item);
+    } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
+router.delete('/certificates/:id', async (req, res) => {
+    try {
+      const item = await Certificate.findByIdAndUpdate(req.params.id, { deleted_at: new Date() });
+      await logAudit('SOFT_DELETE', 'Certificate', item._id, { title: item.title });
+      res.json({ message: 'Deleted' });
+    } catch (error) { res.status(500).json({ error: error.message }); }
+});
+
 // --- Admin System Endpoints ---
 router.get('/admin/analytics', async (req, res) => {
     try {
@@ -212,7 +252,6 @@ router.get('/admin/logs', async (req, res) => {
 
 router.get('/admin/trash', async (req, res) => {
     try {
-        // Collect soft-deleted items
         const results = [];
         const addItems = (docs, type) => docs.forEach(d => results.push({ id: d.id, type, title: d.title || d.name || d.company, deleted_at: d.deleted_at }));
         
@@ -220,8 +259,8 @@ router.get('/admin/trash', async (req, res) => {
         addItems(await Blog.find({ deleted_at: { $ne: null } }), 'blogs');
         addItems(await Skill.find({ deleted_at: { $ne: null } }), 'skills');
         addItems(await Experience.find({ deleted_at: { $ne: null } }), 'experience');
+        addItems(await Certificate.find({ deleted_at: { $ne: null } }), 'certificates');
 
-        // sort by newest delete
         results.sort((a,b) => new Date(b.deleted_at) - new Date(a.deleted_at));
         res.json(results);
     } catch(err) { res.json([]); }
@@ -230,7 +269,7 @@ router.get('/admin/trash', async (req, res) => {
 router.post('/admin/restore', async (req, res) => {
     try {
         const { type, id } = req.body;
-        let Model = { 'projects': Project, 'blogs': Blog, 'skills': Skill, 'experience': Experience }[type];
+        let Model = { 'projects': Project, 'blogs': Blog, 'skills': Skill, 'experience': Experience, 'certificates': Certificate }[type];
         if(!Model) return res.status(400).json({error: 'Invalid type'});
         
         const doc = await Model.findByIdAndUpdate(id, { deleted_at: null });
@@ -242,7 +281,7 @@ router.post('/admin/restore', async (req, res) => {
 router.delete('/admin/trash/:type/:id', async (req, res) => {
     try {
         const { type, id } = req.params;
-        let Model = { 'projects': Project, 'blogs': Blog, 'skills': Skill, 'experience': Experience }[type];
+        let Model = { 'projects': Project, 'blogs': Blog, 'skills': Skill, 'experience': Experience, 'certificates': Certificate }[type];
         if(!Model) return res.status(400).json({error: 'Invalid type'});
         
         await Model.findByIdAndDelete(id);

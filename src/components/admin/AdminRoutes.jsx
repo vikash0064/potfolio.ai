@@ -19,6 +19,9 @@ const EditSkillPage = lazy(() => import('../../pages/admin/skills/[id]/edit/page
 const AdminExperience = lazy(() => import('../../pages/admin/experience/page'));
 const AdminExperienceNew = lazy(() => import('../../pages/admin/experience/new/page'));
 const EditExperiencePage = lazy(() => import('../../pages/admin/experience/[id]/edit/page'));
+const AdminCertificates = lazy(() => import('../../pages/admin/certificates/page'));
+const AdminCertificatesNew = lazy(() => import('../../pages/admin/certificates/new/page'));
+const EditCertificatePage = lazy(() => import('../../pages/admin/certificates/[id]/edit/page'));
 const AdminAnalytics = lazy(() => import('../../pages/admin/analytics/page'));
 const AdminActivity = lazy(() => import('../../pages/admin/activity/page'));
 
@@ -60,6 +63,10 @@ export default function AdminRoutes() {
                 <Route path="experience" element={<Suspense fallback={<LoadingFallback/>}><AdminExperience /></Suspense>} />
                 <Route path="experience/new" element={<Suspense fallback={<LoadingFallback/>}><AdminExperienceNew /></Suspense>} />
                 <Route path="experience/:id/edit" element={<Suspense fallback={<LoadingFallback/>}><EditExperiencePage /></Suspense>} />
+
+                <Route path="certificates" element={<Suspense fallback={<LoadingFallback/>}><AdminCertificates /></Suspense>} />
+                <Route path="certificates/new" element={<Suspense fallback={<LoadingFallback/>}><AdminCertificatesNew /></Suspense>} />
+                <Route path="certificates/:id/edit" element={<Suspense fallback={<LoadingFallback/>}><EditCertificatePage /></Suspense>} />
 
                 <Route path="analytics" element={<Suspense fallback={<LoadingFallback/>}><AdminAnalytics /></Suspense>} />
                 <Route path="activity" element={<Suspense fallback={<LoadingFallback/>}><AdminActivity /></Suspense>} />

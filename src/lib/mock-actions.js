@@ -129,4 +129,18 @@ export const getBlogs = async () => {
     return [];
 };
 
+export const updateCertificate = async (id, data) => {
+    const res = await fetch(`${API_URL}/certificates/${id}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+    if(res.ok) return { success: true };
+    return { success: false, error: 'Failed' };
+};
+export const createCertificate = async (data) => {
+    const res = await fetch(`${API_URL}/certificates`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+    if(res.ok) return { success: true };
+    return { success: false, error: 'Failed' };
+};
+export const deleteCertificate = async (id) => {
+    await fetch(`${API_URL}/certificates/${id}`, { method: 'DELETE' });
+};
+
 export const uploadImage = async () => ({ url: '' });

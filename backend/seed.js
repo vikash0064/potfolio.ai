@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { Project, Skill, Experience, Blog, User } from './models.js';
+import { Project, Skill, Experience, Blog, User, Certificate } from './models.js';
 // Admin user seed data (change these as needed)
 const adminUser = {
     username: "admin",
@@ -53,6 +53,33 @@ const dummyExperience = [
     }
 ];
 
+const dummyCertificates = [
+    {
+        title: "Social Networks",
+        issuer: "NPTEL / IIT Madras",
+        date: "2024 - Present",
+        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070",
+        link: "https://nptel.ac.in",
+        order_index: 0
+    },
+    {
+        title: "Computer Architecture & Operating Systems",
+        issuer: "IBM / Coursera",
+        date: "2023",
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070",
+        link: "https://coursera.org",
+        order_index: 1
+    },
+    {
+        title: "Code-A-Haunt Hackathon",
+        issuer: "LPU / University",
+        date: "2024",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070",
+        link: "#",
+        order_index: 2
+    }
+];
+
 async function seedDatabase() {
     try {
         await mongoose.connect(MONGODB_URI);
@@ -62,6 +89,7 @@ async function seedDatabase() {
         await Skill.deleteMany({});
         await Experience.deleteMany({});
         await Blog.deleteMany({});
+        await Certificate.deleteMany({});
 
         // Remove old admin users and insert the new one
         await User.deleteMany({ role: "admin" });
@@ -70,6 +98,7 @@ async function seedDatabase() {
         await Project.insertMany(dummyProjects);
         await Skill.insertMany(dummySkills);
         await Experience.insertMany(dummyExperience);
+        await Certificate.insertMany(dummyCertificates);
 
         console.log('Database seeded successfully!');
         process.exit(0);

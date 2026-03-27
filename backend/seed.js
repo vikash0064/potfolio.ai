@@ -44,12 +44,28 @@ const dummySkills = [
 
 const dummyExperience = [
     {
+        company: "Webingix",
+        role: "Software Engineer Intern",
+        duration: "3 Months",
+        description: "Worked on modern React applications and UI/UX improvements.",
+        is_active: false,
+        order_index: 0
+    },
+    {
+        company: "Cipherschool",
+        role: "Web Developer Intern",
+        duration: "2 Months",
+        description: "Built scalable web apps and explored MERN stack development.",
+        is_active: false,
+        order_index: 1
+    },
+    {
         company: "Example Company",
         role: "Software Engineer",
         duration: "2022 - Present",
         description: "Building scalable web applications.",
         is_active: true,
-        order_index: 0
+        order_index: 2
     }
 ];
 

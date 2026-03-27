@@ -1,27 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 const ExperienceScale = ({ experience }) => {
-    // Merge hardcoded internships with API data if not already present
-    const hardcodedExp = [
-        {
-            id: 'webingix',
-            company: 'Webingix',
-            role: 'Software Engineer Intern',
-            duration: '3 Months',
-            description: 'Worked on modern React applications and UI/UX improvements.',
-            is_static: true
-        },
-        {
-            id: 'cipherschool',
-            company: 'Cipherschool',
-            role: 'Web Developer Intern',
-            duration: '2 Months',
-            description: 'Built scalable web apps and explored MERN stack development.',
-            is_static: true
-        }
-    ];
-
-    const displayExperience = [...(experience || []), ...hardcodedExp].sort((a, b) => (b.order_index || 0) - (a.order_index || 0));
+    const displayExperience = (experience || []).sort((a, b) => (b.order_index || 0) - (a.order_index || 0));
 
     if (!displayExperience || displayExperience.length === 0)
         return null;

@@ -34,8 +34,16 @@ export default function FeaturedBlogs() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {blogs.map((blog) => (<BlogCard key={blog.id} blog={blog}/>))}
+                    {blogs.slice(0, 3).map((blog) => (<BlogCard key={blog.id} blog={blog}/>))}
                 </div>
+
+                {blogs.length > 3 && (
+                    <div className="mt-12 flex justify-center">
+                        <Link href="/blogs" className="group px-8 py-3 bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-black transition-all duration-300 flex items-center gap-2 font-mono group rounded-sm">
+                            Show More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform"/>
+                        </Link>
+                    </div>
+                )}
             </div>
         </section>);
 }

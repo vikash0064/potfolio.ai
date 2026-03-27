@@ -28,11 +28,11 @@ export default function Footer() {
                         <div className="w-fit md:mx-auto space-y-4">
                             <h3 className="text-primary font-display text-lg tracking-wide uppercase">Connect</h3>
                             <div className="flex flex-col gap-3">
-                                <a href="tel:+917082771077" className="flex items-center gap-3 text-gray-400 hover:text-white group transition-colors font-mono text-sm">
+                                <a href="tel:+918153929447" className="flex items-center gap-3 text-gray-400 hover:text-white group transition-colors font-mono text-sm">
                                     <span className="p-2 border border-primary/20 rounded-md bg-transparent group-hover:bg-primary/10 transition-colors">
                                         <Phone className="w-4 h-4 text-primary"/>
                                     </span>
-                                    +91 8153929447  
+                                    +91 8153929447
                                 </a>
                                 <a href="mailto:vikashkush64@gmail.com" className="flex items-center gap-3 text-gray-400 hover:text-white group transition-colors font-mono text-sm">
                                     <span className="p-2 border border-primary/20 rounded-md bg-transparent group-hover:bg-primary/10 transition-colors">

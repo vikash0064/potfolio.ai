@@ -1,41 +1,47 @@
-const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
+import { blogs as HARDCODED_BLOGS } from '@/data/blogs';
 
 // Get blogs with optional search, pagination
 export async function getPublishedBlogs(params) {
     try {
-        let url = `${API_URL}/blogs?`;
-        if (params?.query) url += `search=${encodeURIComponent(params.query)}&`;
-        if (params?.page) url += `page=${params.page}&`;
-        if (params?.limit) url += `limit=${params.limit}&`;
+        let filtered = [...HARDCODED_BLOGS];
         
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('Failed to fetch');
-        const data = await res.json();
-        // Return dummy total since we dont send count headers right now
-        return { data: data || [], total: data.length || 0 };
-    } catch (err) { console.error(err); return { data: [], total: 0 }; }
+        if (params?.query) {
+            const q = params.query.toLowerCase();
+            filtered = filtered.filter(b => 
+                b.title.toLowerCase().includes(q) || 
+                b.excerpt.toLowerCase().includes(q)
+            );
+        }
+
+        if (params?.sortBy === 'views') {
+            filtered.sort((a, b) => (b.views || 0) - (a.views || 0));
+        } else if (params?.sortBy === 'featured') {
+             filtered = filtered.filter(b => b.featured);
+        } else {
+            // Default latest
+            filtered.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+        }
+
+        const page = params?.page || 1;
+        const limit = params?.limit || 9;
+        const start = (page - 1) * limit;
+        const data = filtered.slice(start, start + limit);
+
+        return { data, total: filtered.length };
+    } catch (err) { 
+        console.error(err); 
+        return { data: [], total: 0 }; 
+    }
 }
 
 export async function getAllPublishedBlogs() {
-    try {
-        const res = await fetch(`${API_URL}/blogs`);
-        if (!res.ok) throw new Error('Failed');
-        return await res.json() || [];
-    } catch (err) { console.error(err); return []; }
+    return HARDCODED_BLOGS;
 }
 
 export async function getFeaturedBlogs() {
-    try {
-        const res = await fetch(`${API_URL}/blogs?featured=true`);
-        if (!res.ok) throw new Error('Failed');
-        return await res.json() || [];
-    } catch (err) { console.error(err); return []; }
+    return HARDCODED_BLOGS.filter(b => b.featured);
 }
 
 export async function getBlogBySlug(slug) {
-    try {
-        const res = await fetch(`${API_URL}/blogs/${slug}`);
-        if (!res.ok) throw new Error('Failed');
-        return await res.json() || null;
-    } catch (err) { console.error(err); return null; }
+    return HARDCODED_BLOGS.find(b => b.slug === slug) || null;
 }

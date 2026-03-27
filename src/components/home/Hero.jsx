@@ -11,7 +11,7 @@ const fadeUp = (delay = 0) => ({
 
 export default function Hero() {
     return (
-        <section id="hero" className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 md:px-20 overflow-hidden pt-28 pb-16 md:pt-0 text-center">
+        <section id="hero" className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 md:px-20 overflow-hidden pt-36 pb-16 md:pt-24 text-center">
 
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-[350px] h-[350px] md:w-[600px] md:h-[600px] bg-primary/15 blur-[140px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"/>
@@ -69,7 +69,7 @@ export default function Hero() {
                 </motion.div>
 
                 {/* CTA Buttons */}
-                <motion.div {...fadeUp(1.3)} className="flex flex-col sm:flex-row gap-4 mt-6 font-mono">
+                <motion.div {...fadeUp(1.3)} className="flex flex-col sm:flex-row gap-4 mt-12 font-mono">
                     <a href="#footer" onClick={(e) => {
                         e.preventDefault();
                         document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });

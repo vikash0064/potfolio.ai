@@ -3,6 +3,21 @@ import { motion } from "framer-motion";
 import { Atom, Cloud, Code, Database, GitBranch, Globe, Move, Sparkles, Wind } from "lucide-react";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
+
+const HARDCODED_SKILLS = [
+    { id: "nextjs",     name: "Next.js",        category: "Frontend", icon: "Code" },
+    { id: "react",      name: "React.js",        category: "Frontend", icon: "Atom" },
+    { id: "mongodb",    name: "MongoDB",         category: "Backend",  icon: "Database" },
+    { id: "supabase",   name: "Supabase",        category: "Backend",  icon: "Cloud" },
+    { id: "framer",     name: "Framer Motion",   category: "Frontend", icon: "Move" },
+    { id: "gsap",       name: "GSAP",            category: "Frontend", icon: "Sparkles" },
+    { id: "tailwind",   name: "Tailwind CSS",    category: "Frontend", icon: "Wind" },
+    { id: "rest",       name: "RESTful APIs",    category: "Backend",  icon: "Globe" },
+    { id: "git",        name: "Git",             category: "Tools",    icon: "GitBranch" },
+    { id: "typescript", name: "TypeScript",      category: "Frontend", icon: "Code" },
+    { id: "nodejs",     name: "Node.js",         category: "Backend",  icon: "Atom" },
+];
+
 const iconMap = {
     Code: Code,
     Atom: Atom,
@@ -129,9 +144,8 @@ const SkillCard = ({ skill, index }) => {
             </div>
         </motion.div>);
 };
-export default function SkillsSection({ skills }) {
-    if (!skills || skills.length === 0)
-        return null;
+export default function SkillsSection() {
+    const skills = HARDCODED_SKILLS;
     return (<section id="skills" className="relative w-full py-20 px-6 md:px-20 overflow-hidden bg-background">
 
             {/* Header */}
@@ -148,7 +162,7 @@ export default function SkillsSection({ skills }) {
 
             {/* Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto relative z-10">
-                {skills.map((skill, index) => (<SkillCard key={skill.id} skill={skill} index={index}/>))}
+                {skills.map((skill, index) => (<SkillCard key={skill.id} skill={skill} index={index} />))}
             </div>
 
             {/* Background Decorations */}

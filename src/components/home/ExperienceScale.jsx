@@ -1,7 +1,30 @@
 "use client";
 import { motion } from "framer-motion";
-const ExperienceScale = ({ experience }) => {
-    const displayExperience = (experience || []).sort((a, b) => (b.order_index || 0) - (a.order_index || 0));
+
+const HARDCODED_EXPERIENCE = [
+    {
+        id: 'webingix-001',
+        company: 'Webingix',
+        role: 'Full Stack Intern',
+        duration: '3 Months',
+        description: 'Worked as a Full Stack Intern, contributing to both frontend and backend development of modern web applications. Built responsive user interfaces, integrated APIs, managed databases, and implemented core features to improve overall functionality and user experience.',
+        order_index: 2,
+        is_active: false
+    },
+    {
+        id: 'cipherschool-001',
+        company: 'Cipherschool',
+        role: 'Frontend Intern',
+        duration: '2 Months',
+        description: 'Worked on building responsive and user-friendly web interfaces using modern frontend technologies. Contributed to UI development, reusable component creation, layout optimization, and improving overall user experience across different screen sizes.',
+        order_index: 1,
+        is_active: false
+    }
+];
+
+const ExperienceScale = () => {
+    // Static experience data — fully hardcoded for reliability
+    const displayExperience = HARDCODED_EXPERIENCE;
 
     if (!displayExperience || displayExperience.length === 0)
         return null;

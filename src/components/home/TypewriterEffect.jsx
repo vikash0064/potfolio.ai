@@ -6,21 +6,21 @@ export default function TypewriterEffect() {
     const [text, setText] = useState("");
     const [phraseIndex, setPhraseIndex] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [typingSpeed, setTypingSpeed] = useState(150);
+    const [typingSpeed, setTypingSpeed] = useState(220);
     useEffect(() => {
         const handleTyping = () => {
             const currentPhrase = phrases[phraseIndex];
             if (isDeleting) {
                 setText(currentPhrase.substring(0, text.length - 1));
-                setTypingSpeed(75);
+                setTypingSpeed(100);
             }
             else {
                 setText(currentPhrase.substring(0, text.length + 1));
-                setTypingSpeed(150);
+                setTypingSpeed(220);
             }
             if (!isDeleting && text === currentPhrase) {
                 // Finished typing phrase
-                setTimeout(() => setIsDeleting(true), 1500); // Pause at end
+                setTimeout(() => setIsDeleting(true), 2500); // Longer pause at end
             }
             else if (isDeleting && text === "") {
                 // Finished deleting
@@ -31,6 +31,7 @@ export default function TypewriterEffect() {
         const timer = setTimeout(handleTyping, typingSpeed);
         return () => clearTimeout(timer);
     }, [text, isDeleting, phraseIndex, typingSpeed]);
+
     return (<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent inline-block min-h-[1.2em]">
             {text}
             <motion.span animate={{ opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-[2px] h-[1em] bg-primary inline-block ml-1 align-middle"/>

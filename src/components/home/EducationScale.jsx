@@ -1,7 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GitBranch, ExternalLink, Terminal, Award, Trophy, Folder, X, ZoomIn } from "lucide-react";
-import { getCertificates } from "@/lib/api";
+
+const HARDCODED_CERTIFICATES = [
+    {
+        id: "cert-1",
+        title: "Code-A-Haunt 24-Hour Hackathon",
+        issuer: "Lovely Professional University",
+        date: "FEB'24 - MAR'24",
+        link: "#",
+        image: "/certificate image/Screenshot 2026-03-23 033358.png"
+    },
+    {
+        id: "cert-2",
+        title: "The Bits and Bytes of Computer Networking",
+        issuer: "Coursera / Google",
+        date: "September 2024",
+        link: "https://coursera.org/verify/OK4YO9N4ZQ17",
+        image: "/certificate image/Screenshot 2026-03-27 031406.png"
+    },
+    {
+        id: "cert-3",
+        title: "Computer Architecture & Operating Systems",
+        issuer: "IBM / Coursera",
+        date: "2023",
+        link: "https://coursera.org/verify/B1BCXL7JNJ5S",
+        image: "/certificate image/Screenshot 2026-03-27 032714.png"
+    }
+];
+
 
 const educationData = [
     {
@@ -34,21 +61,8 @@ const achievementsData = [
 ];
 
 const EducationScale = () => {
-    const [certificates, setCertificates] = useState([]);
+    const [certificates] = useState(HARDCODED_CERTIFICATES);
     const [selectedCert, setSelectedCert] = useState(null);
-
-    useEffect(() => {
-        getCertificates().then(data => {
-            if (data && data.length > 0) setCertificates(data);
-            else {
-                // Fallback for demo if DB is empty
-                setCertificates([
-                    { title: "NPTEL Certification \u2013 Social Networks (Ongoing)", issuer: "NPTEL", date: "JAN'26 - PRESENT", link: "#", image: null },
-                    { title: "Code-A-Haunt 24-Hour Hackathon", issuer: "Lovely Professional University", date: "FEB'24 - MAR'24", link: "#", image: null }
-                ]);
-            }
-        });
-    }, []);
 
     return (
         <section id="education" className="py-24 px-6 md:px-20 w-full relative z-10 bg-[#050505]">
